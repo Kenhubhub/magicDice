@@ -1,0 +1,73 @@
+// 1) Presents the player with an option to enter their name and then 
+// display it 
+// 2) Presents the player with a dice and a roll button
+// 3) When the roll button is hit, the dice rolls and the value it returns is 
+// added to a counter
+// 4) For as long as the player hasn’t rolled a 6, they continue rolling 
+// 5) If the player rolls a 6, it’s game over - and it should ask them to 
+// play again 
+// Bonus) keep a track of the number of rolls used in each session and 
+// create a high-score table, where the fewest number of rolls to 15 is 
+//objects and variables
+const dice ={
+    1: "./1.png",
+    2: "./2.png",
+    3:"./3.png",
+    4: "./4.png",
+    5: "./5.png",
+    6: "./6.png"
+}
+let score = 0;
+let path = [];
+const previousScores = []
+//queries
+const button = document.getElementById("rollButton")
+const diceImage = document.getElementById("dice")
+const playagain = document.getElementById("playagain")
+const scores = document.getElementById("scores")
+//functions
+const sumScores = (arr)=>{
+    let total = 0;
+    arr.forEach( score => total+= score);
+    return score;
+}
+const diceRoll = ()=>{
+    return Math.floor((Math.random() * 6) + 1);
+}
+const addToDisplay = ()=>{
+
+    
+    const stringScores = previousScores.map(scoreLine => `${scoreLine}`)
+    const scoresToDisplay = stringScores.map(scoreLine => scoreLine.replace(/,/g,"=>"));
+    console.log(scoresToDisplay.map(s => s.split("=>")))
+    
+}
+function reset() {
+    playagain.style.display === "none" ? playagain.style.display = "block" : playagain.style.display = "none";
+    button.style.display === "block" ? button.style.display = "none" : button.style.display = "block";
+    previousScores.push(path);
+    diceImage.setAttribute("src","");
+    addToDisplay();
+}
+//events
+button.addEventListener("click", ()=>{
+    const diceValue = diceRoll();
+    const diceSRC = dice[diceValue
+    diceImage.setAttribute("src",diceSRC);
+    if(diceValue === 6){
+       button.style.display = "none";
+       playagain.style.display = "block";
+       setTimeout(()=>{
+           diceImage.setAttribute("src","")
+       },1000)
+    }else{
+        path.push(diceValue);
+    }
+})
+playagain.addEventListener("click", e =>{
+    if(e.target.tagName === "BUTTON"){
+        score = 0;
+        path = [];
+        reset();
+    }
+})
