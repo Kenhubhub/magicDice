@@ -52,7 +52,7 @@ function reset() {
 //events
 button.addEventListener("click", ()=>{
     const diceValue = diceRoll();
-    const diceSRC = dice[diceValue
+    const diceSRC = dice[diceValue]
     diceImage.setAttribute("src",diceSRC);
     if(diceValue === 6){
        button.style.display = "none";
