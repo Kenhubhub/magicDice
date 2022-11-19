@@ -18,13 +18,14 @@ const dice ={
     6: "./6.png"
 }
 let score = 0;
-let path = [];
-const previousScores = []
+let scoreObject = {}
+let path = []
 //queries
 const button = document.getElementById("rollButton")
 const diceImage = document.getElementById("dice")
 const playagain = document.getElementById("playagain")
 const scores = document.getElementById("scores")
+const highScores =[];
 //functions
 const sumScores = (arr)=>{
     let total = 0;
@@ -34,20 +35,31 @@ const sumScores = (arr)=>{
 const diceRoll = ()=>{
     return Math.floor((Math.random() * 6) + 1);
 }
-const addToDisplay = ()=>{
-
-    
-    const stringScores = previousScores.map(scoreLine => `${scoreLine}`)
-    const scoresToDisplay = stringScores.map(scoreLine => scoreLine.replace(/,/g,"=>"));
-    console.log(scoresToDisplay.map(s => s.split("=>")))
-    
+const addPath = (path,highscore)=>{
+    highScores.push(score);
+    scoreObject[highscore] = path;
+    console.log("highscores: ",highScores)
+    console.log(scoreObject)
+}
+const displayScores = ()=>{
+    const str = highScores.sort((a,b)=>a-b).reverse().map( (highScore,i) =>{
+        if(i === 0){
+           return `${highScore}: ${scoreObject[highScore]} <= HIGH SCORE`
+        }
+       return `${highScore}: ${scoreObject[highScore]}`});
+    console.log(str);
+    str.forEach( s =>{
+        const p = document.createElement("p");
+        p.innerText = s;
+        scores.append(p);
+    })
 }
 function reset() {
     playagain.style.display === "none" ? playagain.style.display = "block" : playagain.style.display = "none";
     button.style.display === "block" ? button.style.display = "none" : button.style.display = "block";
-    previousScores.push(path);
+    displayScores();
     diceImage.setAttribute("src","");
-    addToDisplay();
+ 
 }
 //events
 button.addEventListener("click", ()=>{
@@ -57,17 +69,20 @@ button.addEventListener("click", ()=>{
     if(diceValue === 6){
        button.style.display = "none";
        playagain.style.display = "block";
+       addPath(path,score);
        setTimeout(()=>{
            diceImage.setAttribute("src","")
        },1000)
     }else{
-        path.push(diceValue);
+        score+= diceValue;
+       path.push(diceValue);
     }
 })
 playagain.addEventListener("click", e =>{
     if(e.target.tagName === "BUTTON"){
         score = 0;
-        path = [];
+        path = [];  
+        scores.innerHTML = "";
         reset();
     }
 })

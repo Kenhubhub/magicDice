@@ -17,9 +17,16 @@ body h1{
     border-radius: 1em;
     padding: 1em;
 }
-button:hover{
-    background-color: rgb(255, 187, 0);
+#rollButton:hover,button:hover{
+    background-color: rgb(255, 208, 0);
     cursor: pointer;
+}
+#diceContainer{
+    min-width: 200px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #dice{
     max-width: 100px;
@@ -29,4 +36,7 @@ button:hover{
     color: red;
     display: none;
     text-align: center;
+}
+#scores{
+    color: white;
 }
