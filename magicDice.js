@@ -1,14 +1,16 @@
 // 1) Presents the player with an option to enter their name and then 
-// display it 
-// 2) Presents the player with a dice and a roll button
+// display it X
+// 2) Presents the player with a dice and a roll button  X
 // 3) When the roll button is hit, the dice rolls and the value it returns is 
-// added to a counter
+// added to a counter X
 // 4) For as long as the player hasn’t rolled a 6, they continue rolling 
 // 5) If the player rolls a 6, it’s game over - and it should ask them to 
-// play again 
+// play again  X
 // Bonus) keep a track of the number of rolls used in each session and 
 // create a high-score table, where the fewest number of rolls to 15 is 
-//objects and variables
+//objects and variables X
+let username = prompt("Enter your name!");
+!username ? username = "Not Entered" : true; 
 const dice ={
     1: "./1.png",
     2: "./2.png",
@@ -25,6 +27,10 @@ const button = document.getElementById("rollButton")
 const diceImage = document.getElementById("dice")
 const playagain = document.getElementById("playagain")
 const scores = document.getElementById("scores")
+const Name = document.getElementById("name");
+const scoreDisplay = document.getElementById("score")
+Name.innerText = username;
+scoreDisplay.innerText = score;
 const highScores =[];
 //functions
 const sumScores = (arr)=>{
@@ -75,6 +81,7 @@ button.addEventListener("click", ()=>{
        },1000)
     }else{
         score+= diceValue;
+        scoreDisplay.innerText = score;
        path.push(diceValue);
     }
 })
