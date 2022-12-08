@@ -33,11 +33,7 @@ Name.innerText = username;
 scoreDisplay.innerText = score;
 const highScores =[];
 //functions
-const sumScores = (arr)=>{
-    let total = 0;
-    arr.forEach( score => total+= score);
-    return score;
-}
+
 const diceRoll = ()=>{
     return Math.floor((Math.random() * 6) + 1);
 }
